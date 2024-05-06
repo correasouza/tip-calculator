@@ -1,21 +1,56 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, TextInput } from 'react-native';
+import { useState  } from 'react';
+import { StyleSheet, Text, View, StatusBar, TextInput, TouchableOpacity } from 'react-native';
 
 export default function App() {
+
+const [valor, setValor] = useState('')
+const [percentual, setPercentual] = useState('')
+const [pessoas, setPessoas] = useState('')
+
   return (
     <View style={styles.container}>
 
       <Text style={styles.textTitle}>Tip Calculator</Text>
 
       <View style={styles.viewSecundary}>
+
         <Text style={styles.textSubTitles}>Valor</Text>
-        <TextInput style={styles.textInput}>
-          <Text>Digite o valor</Text>
-        </TextInput>
-      </View>
+
+        <TextInput
+          style={styles.textInput}
+          placeholder='Valor'
+          placeholderTextColor={'gray'}
+          value={valor}
+          onChangeText={setValor}
+          
+        />
+        
+        <TextInput
+          style={styles.textInput}
+          placeholder='Percentual'
+          placeholderTextColor={'gray'}
+          value={percentual}
+          onChangeText={setPercentual}
+          
+        />
+
+         <TextInput
+          style={styles.textInput}
+          placeholder='Pessoas'
+          placeholderTextColor={'gray'}
+          value={pessoas}
+          onChangeText={setPessoas}
+          
+        />
+
       
 
-
+      </View>
+      
+      <TouchableOpacity style={styles.buttonCalculator}>
+        <Text style={styles.textButton}>Calcular</Text>
+      </TouchableOpacity>
 
       <StatusBar barStyle='light-content'/>
     </View>
@@ -31,23 +66,37 @@ const styles = StyleSheet.create({
     paddingTop: 100
   },
   textTitle: {
-    color: '#ded1b6',
+    color: 'white',
     fontSize: 18, 
     textAlign: 'center',
     paddingTop: 40
   },
   textInput: {
     color: '#e9e9e9',
-    textAlign: 'center',
-    backgroundColor: '#101010',
-    width: 300,
-    height: 40,
-    left: 30,
-    borderRadius: 5
-
+    textAlign: 'left',
+    paddingLeft: 15,
+    width: 330,
+    height: 60,
+    left: '4%',
+    borderRadius: 10,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    fontWeight:'bold'
   },
-  textSubTitles: {
-    color: '#ded1b6',
-    textAlign: 'center'
-  }
+  textButton: {
+    color: 'white',
+    textAlign: 'center',
+    padding: 15
+  },
+  buttonCalculator: {
+    backgroundColor: 'blue',
+    textAlign: 'center',
+    justifyContent: 'center',
+    width: 100,
+    height: 50,
+    left: 130,
+    borderRadius: 30,
+    marginTop: 200
+  },
 });
