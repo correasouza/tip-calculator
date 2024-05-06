@@ -4,9 +4,17 @@ import { StyleSheet, Text, View, StatusBar, TextInput, TouchableOpacity } from '
 
 export default function App() {
 
-const [valor, setValor] = useState('')
-const [percentual, setPercentual] = useState('')
-const [pessoas, setPessoas] = useState('')
+const [valor, setValor] = useState(null)
+const [percentual, setPercentual] = useState(null)
+const [pessoas, setPessoas] = useState(null)
+const [gorjeta, setGorjeta] = useState(null)
+const [totalGorjeta, setTotalGorjeta] = useState(null)
+
+const valorNumber = parseFloat(valor)
+const percentualNumber = parseInt(percentual)
+const pessoasNumber = parseInt(pessoas)
+const gorjetaNumber = parseFloat(gorjeta)
+const totalGorjetaNumber = parseFloat(totalGorjeta)
 
   return (
     <View style={styles.container}>
@@ -15,15 +23,13 @@ const [pessoas, setPessoas] = useState('')
 
       <View style={styles.viewSecundary}>
 
-        <Text style={styles.textSubTitles}>Valor</Text>
-
         <TextInput
           style={styles.textInput}
           placeholder='Valor'
           placeholderTextColor={'gray'}
           value={valor}
           onChangeText={setValor}
-          
+          keyboardType='numeric'
         />
         
         <TextInput
@@ -32,7 +38,7 @@ const [pessoas, setPessoas] = useState('')
           placeholderTextColor={'gray'}
           value={percentual}
           onChangeText={setPercentual}
-          
+          keyboardType='numeric'
         />
 
          <TextInput
@@ -41,26 +47,33 @@ const [pessoas, setPessoas] = useState('')
           placeholderTextColor={'gray'}
           value={pessoas}
           onChangeText={setPessoas}
-          
+          keyboardType='numeric'
         />
 
-      
+        <Text style={styles.textResultado}>Valor da Gorjeta: R$ {gorjetaNumber ? gorjetaNumber : '...'}</Text>
+        <Text style={styles.textResultado}>Valor total: R$ {totalGorjetaNumber ? totalGorjetaNumber : '...'}</Text>
 
       </View>
       
-      <TouchableOpacity style={styles.buttonCalculator}>
+      <TouchableOpacity style={styles.buttonCalculator}
+        onPress={() => {setGorjeta((((valorNumber * percentualNumber) / 100) / pessoasNumber).toFixed(2));
+        setTotalGorjeta(((valorNumber * percentualNumber) / 100).toFixed(2))}}
+      >
         <Text style={styles.textButton}>Calcular</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> 
 
-      <StatusBar barStyle='light-content'/>
+      <Text style={{color:'white', fontSize: 10, textAlign: 'center', marginTop: 40}}>v1 by igor</Text>
+
+      <StatusBar barStyle='light-content' backgroundColor={'#101021'}/>
     </View>
   );
+  
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: '#101021',
   },
   viewSecundary: {
     paddingTop: 100
@@ -69,7 +82,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18, 
     textAlign: 'center',
-    paddingTop: 40
+    paddingTop: 40,
+    fontWeight: 'bold'
   },
   textInput: {
     color: '#e9e9e9',
@@ -79,8 +93,8 @@ const styles = StyleSheet.create({
     height: 60,
     left: '4%',
     borderRadius: 10,
-    borderColor: 'gray',
-    borderWidth: 1,
+    borderColor: 'white',
+    borderWidth: 0.3,
     marginBottom: 10,
     fontWeight:'bold'
   },
@@ -99,4 +113,11 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginTop: 200
   },
+  textResultado: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign:'center',
+    fontSize: 16,
+    paddingTop: 10
+  }
 });
